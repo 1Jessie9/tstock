@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Protest Riot';
+    src: url('./ProtestRiot-Regular.ttf') format('woff2'),
+        url('./ProtestRiot-Regular.ttf') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
