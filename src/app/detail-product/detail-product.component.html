@@ -1,0 +1,135 @@
+<div class="detail-product">
+    <div class="first-info">
+        <div class="contain-gallery">
+            <img [src]="imgSeleted" [alt]="'producto-tstock' + infoProduct.name" class="img-product">
+
+            <div class="contain-swiper">
+                <div class="swiper" #swiper>
+                    <div class="swiper-wrapper">
+                        @for (image of infoProduct.gallerySrc; track $index) {
+                        <div class="swiper-slide" (click)="changeImage(image)">
+                            <img [src]="image" class="image-container">
+                        </div>
+                        }
+                    </div>
+                </div>
+                <fa-icon [icon]="faChevronLeft" class="icon-arrow left" (click)="moveSwiper('left')"></fa-icon>
+                <fa-icon [icon]="faChevronRight" class="icon-arrow right" (click)="moveSwiper('right')"></fa-icon>
+            </div>
+        </div>
+
+        <div class="contain-info">
+            <h2 class="title-name">{{infoProduct.name}}</h2>
+
+            <p class="description">{{infoProduct.description}}</p>
+
+            <div class="item-info">
+                @for (item of scoreProduct; track $index) {
+                <fa-icon [icon]="faStar" class="icon-star"></fa-icon>
+                }
+
+                <span class="total">({{infoProduct.totalScores}})</span>
+            </div>
+
+            <h6 class="price">
+                {{infoProduct.price.toLocaleString('es-CO', { style: 'currency',currency: 'COP',
+                minimumFractionDigits:0})}}
+            </h6>
+
+            <button class="btn-primary" (click)="addShoppingCar(); $event.stopPropagation()">
+                <fa-icon [icon]="faCartShopping" class="icon-star"></fa-icon>
+                <span>Agregar al carrito</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="second-info">
+        <div class="segment">
+            @for (item of listSegment; track $index) {
+            <h5 class="item-segment" [class.active]="selectedSegment === item.id" (click)="selectSegment(item.id)">
+                {{item.name}}
+            </h5>
+            }
+        </div>
+
+        @switch (selectedSegment) {
+        <!-- Características -->
+        @case (1) {
+        <div class="features-contain">
+            <div class="feature-info">
+                @if (infoProduct.featureInfo) {
+                <!-- Titulo característica -->
+                <h6 class="feature-title">{{infoProduct.featureInfo.title}}</h6>
+                <!-- Descripción característica -->
+                <p class="feature-description">{{infoProduct.featureInfo.description}}</p>
+
+                <!-- lista de características -->
+                <div class="list-features">
+                    @for (item of infoProduct.featureInfo.features; track item.id) {
+                    <span class="description">{{item.name}}</span>
+                    }
+                </div>
+                }
+            </div>
+            <img [src]="infoProduct.featureInfo?.imgSrc" [alt]="'producto-tstock' + infoProduct.name"
+                class="img-feature">
+        </div>
+        }
+
+        <!-- Especificaciones -->
+        @case (2) {
+        <div class="contain-specifications">
+            @for (item of infoProduct.specifications; track item.id) {
+            <div class="item-info">
+                <span class="title">{{item.name}}: </span>
+                <span class="description">{{item.value}}</span>
+            </div>
+            }
+        </div>
+        }
+
+        <!-- Comentarios -->
+        @case (3) {
+        <div class="contain-comments">
+            <!-- Agregar comentario -->
+            <div class="contain-my-comment">
+                <label for="myComment" class="title-input">¡Agrega tu comentario sobre este producto!</label>
+                <div class="contain-input">
+                    <fa-icon [icon]="faUserPlus" class="icon-person"></fa-icon>
+                    <input type="text" class="input-comment" placeholder="Comentario..." id="myComment"
+                        [(ngModel)]="valueComment">
+                    @if (valueComment) {
+                    <fa-icon [icon]="faPaperPlane" class="icon-send" @sendIcon></fa-icon>
+                    }
+                </div>
+            </div>
+
+            <!-- Lista de comentarios -->
+            @if (comments.length) {
+            <div class="list-comments">
+                @for (comment of comments; track comment.id) {
+                <div class="comment-content">
+                    <div class="row1">
+                        <div class="contain-name">
+                            <span class="name">{{comment.name}}</span>
+                            <span class="name">{{comment.createdAt}}</span>
+                        </div>
+
+                        <div class="score">
+                            <fa-icon [icon]="faStar" class="icon-star"></fa-icon>
+                            <span class="total">({{comment.score}})</span>
+                        </div>
+                    </div>
+                    <p class="description">
+                        {{comment.comment}}
+                    </p>
+                </div>
+                }
+            </div>
+            }
+        </div>
+        }
+        }
+
+    </div>
+</div>

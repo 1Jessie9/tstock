@@ -1,0 +1,66 @@
+.header {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    max-width: 1280px;
+    width: 90%;
+    justify-content: space-between;
+    margin-bottom: 50px;
+
+    .second {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+    }
+
+    .logo {
+        font-family: "Protest Riot", sans-serif;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+
+        span {
+            &:first-child {
+                color: var(--color-primary);
+                font-weight: 700;
+                font-size: 30px;
+            }
+
+            &:last-child {
+                color: var(--color-dark-text);
+                font-size: 20px;
+            }
+        }
+    }
+
+    .contain-cart {
+        border: 1px solid var(--color-medium2-text);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        font-size: 15px;
+
+        .icon-cart {
+            color: var(--color-medium1-text);
+            margin-left: 15px;
+        }
+
+        .total-cart {
+            border-radius: 50%;
+            font-size: 10px;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            background-color: var(--color-primary);
+            color: var(--color-light-text);
+            justify-content: center;
+            position: absolute;
+            top: 8px;
+            right: 8px;
+        }
+    }
+}

@@ -1,0 +1,23 @@
+<header class="header">
+    <section class="first">
+        <h1 class="logo" (click)="navigateProduct()">
+            <span>T</span>
+            <span>stock</span>
+        </h1>
+    </section>
+
+    <section class="second">
+        <section class="contain-cart">
+            <fa-icon [icon]="icons.faCartShopping" class="icon-cart"></fa-icon>
+            <div class="total-cart">{{totalCart}}</div>
+        </section>
+
+        @if (isLoggedIn && user) {
+        <section class="badge">
+            <img [src]="user.imgSrc" [alt]="user.names + user.lastNames">
+        </section>
+        } @else {
+        <button class="btn-primary">Iniciar sesión</button>
+        }
+    </section>
+</header>

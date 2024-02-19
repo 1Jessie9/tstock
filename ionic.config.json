@@ -1,0 +1,7 @@
+{
+  "name": "tstock",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}

@@ -1,0 +1,36 @@
+<div class="card-product" (click)="navigateProduct()">
+    <img [src]="infoProduct.gallerySrc[0]" [alt]="'producto-tstock' + infoProduct.name" class="img-product">
+
+    <div class="contain-info">
+        <h6 class="title-product">{{infoProduct.name}}</h6>
+
+        @for (item of infoProduct.specifications; track item.id) {
+        <div class="item-info">
+            <span class="title">{{item.name}}: </span>
+            <span class="description">{{item.value}}</span>
+        </div>
+        }
+        <div class="item-info">
+            @for (item of scoreProduct; track $index) {
+            <fa-icon [icon]="faStar" class="icon-star"></fa-icon>
+            }
+
+            <span class="total">({{infoProduct.totalScores}})</span>
+        </div>
+
+        <div class="wrong-info">
+            <span class="price">
+                {{infoProduct.price.toLocaleString('es-CO', { style: 'currency',currency: 'COP',
+                minimumFractionDigits:0})}}
+            </span>
+            <button class="btn-primary" (click)="addShoppingCar(); $event.stopPropagation()">
+                <fa-icon [icon]="faCartShopping" class="icon-star"></fa-icon>
+            </button>
+        </div>
+    </div>
+
+    <div class="contain-favorite" [class.active]="infoProduct.favorite"
+        (click)="addFavorite(); $event.stopPropagation()">
+        <fa-icon [icon]="faHeart" class="icon-star"></fa-icon>
+    </div>
+</div>

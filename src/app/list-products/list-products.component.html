@@ -1,0 +1,145 @@
+<section class="list-products">
+    <div class="contain-search">
+        <div class="search-label">
+            <label for="search" class="title">¡Busca en Tstock!</label>
+            <label for="search" class="subtitle">La búsqueda perfecta para descubrir tus marcas y productos
+                favoritos.</label>
+        </div>
+        <div class="input">
+            <fa-icon [icon]="icons.faSearch" class="icon-search"></fa-icon>
+            <input type="search" class="search-input" placeholder="Buscar...">
+        </div>
+    </div>
+
+    <div class="row margin">
+        <div class="total-col">
+            <span class="total-products">Mostrando {{totalProducts}} productos</span>
+        </div>
+        <div class="order-col">
+            <div class="box-filter round">
+                <button class="accordion" [class.active]="orderOpened" (click)="openAccordionOrder()">
+                    <p>
+                        <span class="text-simple">Organizado por: </span>
+                        <span>{{orderSelected.name}}</span>
+                    </p>
+                    <fa-icon [icon]="icons.faChevronDown" class="icon-search"></fa-icon>
+                </button>
+                @if (orderOpened) {
+                <div class="panel" @verticalFade>
+                    @for (order of orderList; track order.id) {
+                    <div class="contain-checkbox" (click)="selectOrder(order)">
+                        <div class="custom-checkbox" [class.checked]="order.id === orderSelected.id">
+                            @if (order.id === orderSelected.id) {
+                            <fa-icon [icon]="icons.faCheck" class="icon-checked"></fa-icon>
+                            }
+                        </div>
+                        <span>{{order.name}}</span>
+                    </div>
+                    }
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="contain-products row">
+        <div class="col-filters">
+            <div class="contain-filters">
+                <!-- Filtro de marca -->
+                <div class="box-filter">
+                    <button class="accordion" [class.active]="accordionOpened===1" (click)="openAccordion(1)">
+                        <span>Marca</span>
+                        <fa-icon [icon]="icons.faChevronDown" class="icon-search"></fa-icon>
+                    </button>
+                    @if (accordionOpened === 1) {
+                    <div class="panel" @verticalFade>
+                        @for (brand of brandList; track brand.id) {
+                        <div class="contain-checkbox" (click)="checkedBox(brand, brandSelected)">
+                            <div class="custom-checkbox" [class.checked]="brand.checked">
+                                @if (brand.checked) {
+                                <fa-icon [icon]="icons.faCheck" class="icon-checked"></fa-icon>
+                                }
+                            </div>
+                            <span>{{brand.name}}</span>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <!-- Filtro de RAM -->
+                <div class="box-filter">
+                    <button class="accordion" [class.active]="accordionOpened===2" (click)="openAccordion(2)">
+                        <span>Memoria RAM</span>
+                        <fa-icon [icon]="icons.faChevronDown" class="icon-search"></fa-icon>
+                    </button>
+                    @if (accordionOpened === 2) {
+                    <div class="panel" @verticalFade>
+                        @for (ram of ramList; track ram.id) {
+                        <div class="contain-checkbox" (click)="checkedBox(ram, ramSelected)">
+                            <div class="custom-checkbox" [class.checked]="ram.checked">
+                                @if (ram.checked) {
+                                <fa-icon [icon]="icons.faCheck" class="icon-checked"></fa-icon>
+                                }
+                            </div>
+                            <span>{{ram.name}}</span>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <!-- Filtro de tipo de disco -->
+                <div class="box-filter">
+                    <button class="accordion" [class.active]="accordionOpened===3" (click)="openAccordion(3)">
+                        <span>Tipo de disco duro</span>
+                        <fa-icon [icon]="icons.faChevronDown" class="icon-search"></fa-icon>
+                    </button>
+                    @if (accordionOpened === 3) {
+                    <div class="panel" @verticalFade>
+                        @for (type of diskTypeList; track type.id) {
+                        <div class="contain-checkbox" (click)="checkedBox(type, diskTypeSelected)">
+                            <div class="custom-checkbox" [class.checked]="type.checked">
+                                @if (type.checked) {
+                                <fa-icon [icon]="icons.faCheck" class="icon-checked"></fa-icon>
+                                }
+                            </div>
+                            <span>{{type.name}}</span>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+
+                <!-- Filtro de tamaño de disco -->
+                <div class="box-filter">
+                    <button class="accordion" [class.active]="accordionOpened===4" (click)="openAccordion(4)">
+                        <span>Tamaño de disco duro</span>
+                        <fa-icon [icon]="icons.faChevronDown" class="icon-search"></fa-icon>
+                    </button>
+                    @if (accordionOpened === 4) {
+                    <div class="panel" @verticalFade>
+                        @for (size of diskSizeList; track size.id) {
+                        <div class="contain-checkbox" (click)="checkedBox(size, diskSizeSelected)">
+                            <div class="custom-checkbox" [class.checked]="size.checked">
+                                @if (size.checked) {
+                                <fa-icon [icon]="icons.faCheck" class="icon-checked"></fa-icon>
+                                }
+                            </div>
+                            <span>{{size.name}}</span>
+                        </div>
+                        }
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- columna de lista de productos -->
+        <div class="col-products">
+            @for (product of productsList; track product.id) {
+                <app-card-product [infoProduct]="product"></app-card-product>
+            }
+        </div>
+    </div>
+</section>
