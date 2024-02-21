@@ -7,7 +7,10 @@
         </div>
         <div class="input">
             <fa-icon [icon]="icons.faSearch" class="icon-search"></fa-icon>
-            <input type="search" class="search-input" placeholder="Buscar...">
+            <input type="search" class="search-input" placeholder="Buscar..." [formControl]="searchInput">
+            @if (searchInput.value) {
+            <fa-icon [icon]="icons.faXmark" class="icon-cancel" (click)="searchInput.setValue('')"></fa-icon>
+            }
         </div>
     </div>
 
@@ -138,7 +141,13 @@
         <!-- columna de lista de productos -->
         <div class="col-products">
             @for (product of productsList; track product.id) {
-                <app-card-product [infoProduct]="product"></app-card-product>
+            <app-card-product [infoProduct]="product"></app-card-product>
+            }
+
+            @if (loadMoreData) {
+            <div class="contain-spinner">
+                <fa-icon [icon]="icons.faSpinner" class="icon-spinner"></fa-icon>
+            </div>
             }
         </div>
     </div>

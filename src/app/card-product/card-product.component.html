@@ -23,9 +23,15 @@
                 {{infoProduct.price.toLocaleString('es-CO', { style: 'currency',currency: 'COP',
                 minimumFractionDigits:0})}}
             </span>
-            <button class="btn-primary" (click)="addShoppingCar(); $event.stopPropagation()">
+            @if (!existInCar) {
+            <button class="btn btn-primary" (click)="addShoppingCar(); $event.stopPropagation()">
                 <fa-icon [icon]="faCartShopping" class="icon-star"></fa-icon>
             </button>
+            }@else {
+            <button class="btn btn-secondary" (click)="removeShoppingCar(); $event.stopPropagation()">
+                <fa-icon [icon]="faTrash" class="icon-star"></fa-icon>
+            </button>
+            }
         </div>
     </div>
 

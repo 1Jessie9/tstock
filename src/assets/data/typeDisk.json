@@ -1,0 +1,17 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "HDD"
+        },
+        {
+            "id": 2,
+            "name": "SSD"
+        },
+        {
+            "id": 3,
+            "name": "HDD + SSD"
+        }
+    ],
+    "total": 3
+}

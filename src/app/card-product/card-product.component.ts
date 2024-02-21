@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ICardProduct } from '../../interfaces/card-product.interface';
-import { IValueItem } from '../../interfaces/value-item.interface';
-import { faStar, faCartShopping, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faCartShopping, faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+import { ShoppingCarService } from '../../services/shopping-car.service';
 
 @Component({
     selector: 'app-card-product',
@@ -20,15 +21,24 @@ export class CardProductComponent implements OnInit {
     public faStar = faStar;
     public faCartShopping = faCartShopping;
     public faHeart = faHeart;
+    public faTrash = faTrash;
+    public existInCar: boolean = false;
 
-	constructor(
-		private router: Router,
-	) {
+    constructor(
+        private router: Router,
+        private productService: ProductService,
+        private shoppingCarService: ShoppingCarService,
+    ) {
 
-	}
+    }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.scoreProduct = [...Array(this.infoProduct.score).keys()];
+        await this.checkProductInCart();
+    }
+
+    async checkProductInCart() {
+        this.existInCar = this.shoppingCarService.isProductInCar(this.infoProduct.id);
     }
 
     navigateProduct() {
@@ -36,12 +46,26 @@ export class CardProductComponent implements OnInit {
     }
 
     async addShoppingCar() {
-        // TODO agregar servicio para agregar al carrito
-        console.log("agregar carttio")
+        const response = await this.shoppingCarService.addProductCar(this.infoProduct.id);
+        //TODO agregar mensaje de agregado
+        if (response.success) {
+            console.log("Producto agregado");
+            this.checkProductInCart();
+        }
+    }
+
+    async removeShoppingCar() {
+        const response = await this.shoppingCarService.removeShoppingCar(this.infoProduct.id);
+        //TODO agregar mensaje de agregado
+        if (response.success) { 
+            console.log("Producto removido"); 
+            this.checkProductInCart();
+        }
     }
 
     async addFavorite() {
-        // TODO agregar a favorito
-        this.infoProduct.favorite = true;
+        const response = await this.productService.productFavorite(this.infoProduct.id, this.infoProduct.favorite);
+        if (response.success) this.infoProduct.favorite = !this.infoProduct.favorite;
     }
+
 }
