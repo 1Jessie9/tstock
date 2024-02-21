@@ -13,7 +13,8 @@ export class ProductService {
 
     async getSizesDisk() {
         try {
-            const response = await fetch("/assets/data/sizeDisk.json");
+            console.log("./assets/data/sizeDisk.json")
+            const response = await fetch("./assets/data/sizeDisk.json");
             return await response.json();
         } catch (err) {
             throw err;
@@ -22,7 +23,7 @@ export class ProductService {
 
     async getTypesDisk() {
         try {
-            const response = await fetch("/assets/data/typeDisk.json");
+            const response = await fetch("./assets/data/typeDisk.json");
             return await response.json();
         } catch (err) {
             throw err;
@@ -31,7 +32,7 @@ export class ProductService {
 
     async getRams() {
         try {
-            const response = await fetch("/assets/data/rams.json");
+            const response = await fetch("./assets/data/rams.json");
             return await response.json();
         } catch (err) {
             throw err;
@@ -40,7 +41,7 @@ export class ProductService {
 
     async getBrands() {
         try {
-            const response = await fetch("/assets/data/brands.json");
+            const response = await fetch("./assets/data/brands.json");
             return await response.json();
         } catch (err) {
             throw err;
@@ -49,7 +50,7 @@ export class ProductService {
 
     async getProducts(params: IParamsProduct) {
         try {
-            const response = await fetch("/assets/data/products.json");
+            const response = await fetch("./assets/data/products.json");
             return await response.json();
         } catch (err) {
             throw err;

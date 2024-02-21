@@ -106,7 +106,7 @@ export class DetailProductComponent implements AfterViewInit {
     public faUserPlus = faUserPlus;
     public faPaperPlane = faPaperPlane;
     public imgSeleted: string = "";
-    public selectedSegment: number = 3;
+    public selectedSegment: number = 1;
     public listSegment = [
         {
             id: 1,
