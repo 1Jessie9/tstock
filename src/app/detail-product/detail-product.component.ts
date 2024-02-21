@@ -1,6 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { ICardProduct } from '../../interfaces/card-product.interface';
-import { Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartShopping, faStar, faChevronLeft, faChevronRight, faUserPlus, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import Swiper from 'swiper';
@@ -123,31 +122,30 @@ export class DetailProductComponent implements AfterViewInit {
     ];
     public valueComment: string = "";
     public comments: IComment[] = [
-        { 
-            id: 1, 
-            name: "Yessica C.", 
-            score: 4.9, 
+        {
+            id: 1,
+            name: "Yessica C.",
+            score: 4.9,
             comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat",
             createdAt: "19 Mar, 2023"
         },
-        { 
+        {
             id: 2,
-            name: "Santiago C.", 
-            score: 4.5, 
+            name: "Santiago C.",
+            score: 4.5,
             comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
             createdAt: "30 Dic, 2023"
         },
-        { 
-            id: 1, 
-            name: "Rous N.", 
-            score: 5.0, 
+        {
+            id: 1,
+            name: "Rous N.",
+            score: 5.0,
             comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
             createdAt: "24 ene, 2024"
         }
     ];
 
     constructor(
-        private router: Router,
     ) {
         this.scoreProduct = [...Array(this.infoProduct.score).keys()];
         this.imgSeleted = this.infoProduct.gallerySrc[0];

@@ -1,0 +1,17 @@
+<div class="login">
+    <div class="segment">
+        @for (item of listSegment; track $index) {
+        <h5 class="item-segment" [class.active]="selectedSegment === item.id" (click)="selectSegment(item.id)">
+            {{item.name}}
+        </h5>
+        }
+    </div>
+
+    <div class="form-contain">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <input type="email" class="input-style" placeholder="stock@mail.com" formControlName="email">
+            <input type="password" class="input-style" placeholder="......" formControlName="password">
+            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" [class.disabled]="!loginForm.valid">Enviar</button>
+        </form>
+    </div>
+</div>

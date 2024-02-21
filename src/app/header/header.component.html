@@ -1,6 +1,6 @@
 <header class="header">
     <section class="first">
-        <h1 class="logo" (click)="navigateProduct()">
+        <h1 class="logo" routerLink="/list-products">
             <span>T</span>
             <span>stock</span>
         </h1>
@@ -16,8 +16,8 @@
         <section class="badge">
             <img [src]="user.imgSrc" [alt]="user.names + user.lastNames">
         </section>
-        } @else {
-        <button class="btn btn-primary">Iniciar sesión</button>
+        } @else if(!hideLoggedIn){
+        <button class="btn btn-primary" routerLink="/login">Iniciar sesión</button>
         }
     </section>
 </header>

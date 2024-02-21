@@ -2,19 +2,23 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUser } from '../../interfaces/user.interface';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { ShoppingCarService } from '../../services/shopping-car.service';
-import { Subscription } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [FontAwesomeModule],
+    imports: [
+        FontAwesomeModule,
+        RouterLink,
+    ],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
     public isLoggedIn: boolean = false;
+    public hideLoggedIn: boolean = false;
     public user: IUser | null = null;
     public totalCart: number = 3;
     public icons = {
@@ -26,6 +30,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
         private router: Router,
         private shoppingCarService: ShoppingCarService,
     ) {
+        this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe((event: any) => {
+            const noShow = [
+                '/login',
+            ];
+            this.hideLoggedIn = noShow.includes(event.url);
+        });
     }
 
     async ngOnInit() {
@@ -38,9 +48,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     async ngOnDestroy() {
         if (this.carSubscription) this.carSubscription.unsubscribe();
-    }
-
-    navigateProduct() {
-        this.router.navigateByUrl("/list-products");
     }
 }

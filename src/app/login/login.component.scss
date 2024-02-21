@@ -1,0 +1,22 @@
+.login {
+    width: 90%;
+    max-width: 1280px;
+    margin: auto;
+    margin-top: 80px;
+
+    .segment {
+        margin: auto;
+    }
+
+    .form-contain {
+        width: 500px;
+        max-width: 90%;
+        margin: auto;
+        margin-top: 50px;
+        text-align: -webkit-center;
+
+        .btn {
+            margin-top: 50px;
+        }
+    }
+}
