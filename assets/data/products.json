@@ -1,0 +1,92 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Portátil LENOVO4",
+            "gallerySrc": [
+                "https://exitocol.vtexassets.com/arquivos/ids/21481865/Computador-Portatil-HP-Pavilion-Intel-Core-i5-1235U-RAM-8-GB-512-GB-SSD-15-eg2519la-3488673_d.jpg?v=638430217291770000"
+            ],
+            "price": 2100000,
+            "score": 4,
+            "favorite": false,
+            "description": "",
+            "totalScores": 10,
+            "specifications": [
+                {
+                    "id": 1,
+                    "name": "Procesador",
+                    "value": "8 GB"
+                },
+                {
+                    "id": 2,
+                    "name": "Disco",
+                    "value": "SSD 512 GB"
+                },
+                {
+                    "id": 3,
+                    "name": "Memoria RAM",
+                    "value": "Intel Core I5"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Portátil LENOVO 1",
+            "gallerySrc": [
+                "https://exitocol.vtexassets.com/arquivos/ids/21481865/Computador-Portatil-HP-Pavilion-Intel-Core-i5-1235U-RAM-8-GB-512-GB-SSD-15-eg2519la-3488673_d.jpg?v=638430217291770000"
+            ],
+            "price": 2500000,
+            "score": 3,
+            "favorite": false,
+            "description": "",
+            "totalScores": 10,
+            "specifications": [
+                {
+                    "id": 1,
+                    "name": "Procesador",
+                    "value": "8 GB"
+                },
+                {
+                    "id": 2,
+                    "name": "Disco",
+                    "value": "SSD 512 GB"
+                },
+                {
+                    "id": 3,
+                    "name": "Memoria RAM",
+                    "value": "Intel Core I5"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Portátil LENOVO 2",
+            "gallerySrc": [
+                "https://exitocol.vtexassets.com/arquivos/ids/21481865/Computador-Portatil-HP-Pavilion-Intel-Core-i5-1235U-RAM-8-GB-512-GB-SSD-15-eg2519la-3488673_d.jpg?v=638430217291770000"
+            ],
+            "price": 2500000,
+            "score": 5,
+            "favorite": false,
+            "description": "",
+            "totalScores": 10,
+            "specifications": [
+                {
+                    "id": 1,
+                    "name": "Procesador",
+                    "value": "8 GB"
+                },
+                {
+                    "id": 2,
+                    "name": "Disco",
+                    "value": "SSD 512 GB"
+                },
+                {
+                    "id": 3,
+                    "name": "Memoria RAM",
+                    "value": "Intel Core I5"
+                }
+            ]
+        }
+    ],
+    "total": 20
+}

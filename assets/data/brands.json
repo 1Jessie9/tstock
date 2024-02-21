@@ -1,0 +1,21 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Lenovo"
+        },
+        {
+            "id": 2,
+            "name": "Acer"
+        },
+        {
+            "id": 3,
+            "name": "HP"
+        },
+        {
+            "id": 4,
+            "name": "Apple"
+        }
+    ],
+    "total": 3
+}
