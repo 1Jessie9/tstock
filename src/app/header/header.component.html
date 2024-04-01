@@ -12,11 +12,23 @@
             <div class="total-cart">{{totalCart}}</div>
         </section>
 
-        @if (isLoggedIn && user) {
-        <section class="badge">
-            <img [src]="user.imgSrc" [alt]="user.names + user.lastNames">
+        @if (userService.userData) {
+        <section class="badge" (click)="showMenuChange()">
+            <div class="icon">{{userService.userData.name[0]}}</div>
+
+            <fa-icon [icon]="icons.faChevronDown" class="icon-down"></fa-icon>
+
+            @if (showMenu) {
+            <div class="menu" @verticalFade>
+                <section class="item" (click)="logout()">
+                    <span>Salir</span>
+
+                    <fa-icon [icon]="icons.faRightFromBracket" class="icon-exti"></fa-icon>
+                </section>
+            </div>
+            }
         </section>
-        } @else if(!hideLoggedIn){
+        } @else if(!userService.userData && !hideLoggedIn){
         <button class="btn btn-primary" routerLink="/login">Iniciar sesión</button>
         }
     </section>

@@ -9,6 +9,8 @@ import { ProductService } from '../../services/product.service';
 import { IParamsProduct } from '../../interfaces/params-product.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
+import { UserService } from '../../services/user.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-list-products',
@@ -17,6 +19,7 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
         FontAwesomeModule,
         CardProductComponent,
         ReactiveFormsModule,
+        RouterLink,
     ],
     templateUrl: './list-products.component.html',
     styleUrl: './list-products.component.scss',
@@ -44,12 +47,11 @@ export class ListProductsComponent implements OnInit {
     public accordionOpened: number = 0;
     public orderOpened: boolean = false;
     public orderList: IValueItem[] = [
-        { id: 1, name: "Relevancia", checked: false, value: "relevance" },
-        { id: 2, name: "Menor precio", checked: false, value: "lowerPrice" },
-        { id: 3, name: "Mayor precio", checked: false, value: "higherPrice" },
-        { id: 4, name: "Más vendidos", checked: false, value: "moreSales" },
-        { id: 5, name: "De la A - Z", checked: false, value: "AZ" },
-        { id: 6, name: "De la Z - A", checked: false, value: "ZA" },
+        { id: 1, name: "Relevancia", checked: false, value: "relevance", order: "ASC" },
+        { id: 2, name: "Menor precio", checked: false, value: "price", order: "ASC" },
+        { id: 3, name: "Mayor precio", checked: false, value: "price", order: "DESC" },
+        { id: 4, name: "De la A - Z", checked: false, value: "title", order: "ASC" },
+        { id: 5, name: "De la Z - A", checked: false, value: "title", order: "DESC" },
     ];
     public brandList: IValueItem[] = [];
     public ramList: IValueItem[] = [];
@@ -63,14 +65,16 @@ export class ListProductsComponent implements OnInit {
     public productsList: ICardProduct[] = [];
     public filtersProduct: IParamsProduct = {
         page: 1,
-        orderBy: 'relevance',
+        sort_by: 'price',
     };
     public loadMoreData: boolean = false;
     public noMoreData: boolean = false;
     public searchInput = new FormControl();
+    public hasSuperAdminRole: boolean = false;
 
     constructor(
         private productService: ProductService,
+        public userService: UserService,
     ) {
     }
 
@@ -82,6 +86,15 @@ export class ListProductsComponent implements OnInit {
         await this.getTypesDisk();
         await this.getSizeDisk();
         await this.getProducts();
+
+        this.userService.checkSuperAdminPermission().subscribe({
+            next: (response) => {
+                this.hasSuperAdminRole = response.hasSuperAdminRole;
+            },
+            error: (error) => {
+                console.error('Error fetching superAdmin permission', error);
+            }
+        });
     }
 
     async subscribeSearch() {
@@ -113,7 +126,7 @@ export class ListProductsComponent implements OnInit {
 
         // Si está casi en el fondo entrar
         if (pos > max - 10) {
-            this.loadMoreData = true;
+            this.loadMoreData = false;
             await this.loadMore();
         }
     }
@@ -123,11 +136,11 @@ export class ListProductsComponent implements OnInit {
         this.filtersProduct.page = (this.filtersProduct.page || 0) + 1;
         // TODO Borrar setTimeout después de carga de datos
         setTimeout(async () => {
-            await this.getProducts();
+            // await this.getProducts();
             this.loadMoreData = false;
         }, 300);
         //TODO poner noMoreData en true, solo cuando la data ya este completa
-        if (this.productsList.length > 20) this.noMoreData = true;
+        // if (this.productsList.length > 20) this.noMoreData = true;
     }
 
     async openAccordion(index: number) {
@@ -205,10 +218,15 @@ export class ListProductsComponent implements OnInit {
 
     async getProducts() {
         // Obtenemos productos
-        const { data, total } = await this.productService.getProducts(this.filtersProduct);
-        data.forEach((product: ICardProduct) => {
+        const results = await this.productService.getProducts(this.filtersProduct);
+        results.forEach((product: any) => {
+            product.specifications = JSON.parse(product.specifications);
+            product.totalScores = 19;
+            product.score = 5;
             this.productsList.push(product);
         });
-        this.totalProducts = total;
+        console.log(this.productsList);
+        this.totalProducts = results.length;
+        this.noMoreData = true;
     }
 }

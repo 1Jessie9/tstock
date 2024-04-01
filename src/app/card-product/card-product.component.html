@@ -1,8 +1,10 @@
 <div class="card-product" (click)="navigateProduct()">
-    <img [src]="infoProduct.gallerySrc[0]" [alt]="'producto-tstock' + infoProduct.name" class="img-product">
+    @if (infoProduct.gallery.length && infoProduct.gallery[0].image_path) {
+        <img [src]="infoProduct.gallery[0].image_path" [alt]="'producto-tstock' + infoProduct.title" class="img-product">
+    }
 
     <div class="contain-info">
-        <h6 class="title-product">{{infoProduct.name}}</h6>
+        <h6 class="title-product">{{infoProduct.title}}</h6>
 
         @for (item of infoProduct.specifications; track item.id) {
         <div class="item-info">

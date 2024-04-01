@@ -1,10 +1,11 @@
 export interface IParamsProduct {
-    brand?: string,
+    brand_id?: string,
     ram?: number,
     diskType?: string,
     diskSize?: number,
-    orderBy?: string,
     perPage?: number,
     page?: number,
     search?: string,
+    sort_by?: string,
+    order?: string,
 }

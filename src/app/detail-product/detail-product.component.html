@@ -1,14 +1,20 @@
+@if (infoProduct) {
 <div class="detail-product">
     <div class="first-info">
         <div class="contain-gallery">
-            <img [src]="imgSeleted" [alt]="'producto-tstock' + infoProduct.name" class="img-product">
+            <img [src]="imgSeleted" [alt]="'producto-tstock' + infoProduct.title" class="img-product">
 
             <div class="contain-swiper">
                 <div class="swiper" #swiper>
                     <div class="swiper-wrapper">
-                        @for (image of infoProduct.gallerySrc; track $index) {
-                        <div class="swiper-slide" (click)="changeImage(image)">
-                            <img [src]="image" class="image-container">
+                        @for (image of infoProduct.gallery; track $index) {
+                        <div class="swiper-slide" (click)="changeImage(image.image_path)">
+                            @if (hasSuperAdminRole && userService.authUser) {
+                            <button class="btn btn-secondary btn-remove" (click)="removeGallery(image.id);">
+                                <fa-icon [icon]="faTrash" class="icon-star"></fa-icon>
+                            </button>
+                            }
+                            <img [src]="image?.image_path" class="image-container">
                         </div>
                         }
                     </div>
@@ -19,7 +25,18 @@
         </div>
 
         <div class="contain-info">
-            <h2 class="title-name">{{infoProduct.name}}</h2>
+            <h2 class="title-name">{{infoProduct.title}}</h2>
+            @if (hasSuperAdminRole && userService.authUser) {
+            <div class="contain-input-title">
+                <input class="input-style" [class.invalid]="titleEdit.length < 5" [(ngModel)]="titleEdit" type="text"
+                    placeholder="Título del producto">
+                @if (titleEdit != infoProduct.title) {
+                <button class="btn btn-primary" (click)="changeTitle(); $event.stopPropagation()">
+                    <fa-icon [icon]="faPaperPlane" class="icon-send" @sendIcon></fa-icon>
+                </button>
+                }
+            </div>
+            }
 
             <p class="description">{{infoProduct.description}}</p>
 
@@ -71,7 +88,7 @@
                 </div>
                 }
             </div>
-            <img [src]="infoProduct.featureInfo?.imgSrc" [alt]="'producto-tstock' + infoProduct.name"
+            <img [src]="infoProduct.featureInfo?.imgSrc" [alt]="'producto-tstock' + infoProduct.title"
                 class="img-feature">
         </div>
         }
@@ -117,7 +134,7 @@
 
                         <div class="score">
                             <fa-icon [icon]="faStar" class="icon-star"></fa-icon>
-                            <span class="total">({{comment.score}})</span>
+                            <span class="total">({{comment?.score}})</span>
                         </div>
                     </div>
                     <p class="description">
@@ -133,3 +150,4 @@
 
     </div>
 </div>
+}

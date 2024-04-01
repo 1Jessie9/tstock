@@ -1,19 +1,23 @@
 
 import { Injectable } from '@angular/core';
 import { IParamsProduct } from '../interfaces/params-product.interface';
+import { Observable, firstValueFrom } from 'rxjs';
+import { environment } from '../environments/environment';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ProductService {
+    private baseUrl = environment.url;
 
     constructor(
+        private http: HttpClient,
     ) {
     }
 
     async getSizesDisk() {
         try {
-            console.log("./assets/data/sizeDisk.json")
             const response = await fetch("./assets/data/sizeDisk.json");
             return await response.json();
         } catch (err) {
@@ -48,12 +52,18 @@ export class ProductService {
         }
     }
 
-    async getProducts(params: IParamsProduct) {
+    async getProducts(params: IParamsProduct): Promise<any> {
         try {
-            const response = await fetch("./assets/data/products.json");
-            return await response.json();
-        } catch (err) {
-            throw err;
+            const queryParams = { params: new HttpParams({ fromObject: params as any }) };
+            const result = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/products`, queryParams));
+
+            console.log(result)
+            return result;
+        } catch (error: any) {
+            return {
+                success: false,
+                message: "Error, inténtalo de nuevo",
+            };
         }
     }
 
@@ -66,6 +76,80 @@ export class ProductService {
             };
         } catch (err) {
             throw err;
+        }
+    }
+
+    createProduct(productData: any): Observable<any> {
+        const token = localStorage.getItem('access_token');
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Authorization': `Bearer ${token}`
+            })
+        };
+
+        return this.http.post(`${this.baseUrl}/create-product`, productData, httpOptions);
+    }
+
+    async getProductById(id: string): Promise<any> {
+        try {
+            const queryParams = { params: new HttpParams({ fromObject: { id } as any }) };
+            const result = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/productId`, queryParams));
+
+            console.log(result)
+            return result;
+        } catch (error: any) {
+            return {
+                success: false,
+                message: "Error, inténtalo de nuevo",
+            };
+        }
+    }
+
+    async removeGalleryById(id: number): Promise<any> {
+        try {
+            const token = localStorage.getItem('access_token');
+            const options = {
+                headers: new HttpHeaders({
+                    'Authorization': `Bearer ${token}`
+                }),
+                params: new HttpParams({ fromObject: { id } })
+            };
+
+            const result = await firstValueFrom(this.http.delete<any>(`${this.baseUrl}/delete-gallery`, options));
+
+            console.log(result)
+            return result;
+        } catch (error: any) {
+            return {
+                success: false,
+                message: "Error, inténtalo de nuevo",
+            };
+        }
+    }
+
+    async updateTitle(id: number, title: string): Promise<any> {
+        try {
+            const token = localStorage.getItem('access_token');
+            const httpOptions = {
+                headers: new HttpHeaders({
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                })
+            };
+
+            // Prepara el cuerpo de la solicitud con los datos a enviar
+            const body = { id, title };
+
+            const result = await firstValueFrom(this.http.put<any>(`${this.baseUrl}/update-title`, body, httpOptions));
+
+            console.log(result);
+            return result;
+        } catch (error: any) {
+            console.error('Error updating product title:', error);
+            return {
+                success: false,
+                message: "Error, inténtalo de nuevo",
+            };
         }
     }
 }

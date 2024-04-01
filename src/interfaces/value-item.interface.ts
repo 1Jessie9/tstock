@@ -3,4 +3,5 @@ export interface IValueItem {
     name: string,
     value?: string,
     checked?: boolean,
+    order?: string,
 }

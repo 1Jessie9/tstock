@@ -19,4 +19,26 @@
             margin-top: 50px;
         }
     }
+
+    .contain-spinner {
+        margin: auto;
+        transform: rotate(62deg);
+        width: fit-content;
+        animation: spin 2s linear infinite;
+    }
+
+    .icon-spinner {
+        font-size: 30px;
+        color: var(--color-primary);
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
 }

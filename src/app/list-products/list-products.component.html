@@ -17,6 +17,11 @@
     <div class="row margin">
         <div class="total-col">
             <span class="total-products">Mostrando {{totalProducts}} productos</span>
+
+            @if (hasSuperAdminRole && userService.authUser) {
+            <br><br>
+            <button class="btn btn-primary" routerLink="/create-product">Agregar producto</button>
+            }
         </div>
         <div class="order-col">
             <div class="box-filter round">

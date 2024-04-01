@@ -33,6 +33,7 @@ export class CardProductComponent implements OnInit {
     }
 
     async ngOnInit() {
+        console.log(this.infoProduct.gallery);
         this.scoreProduct = [...Array(this.infoProduct.score).keys()];
         await this.checkProductInCart();
     }

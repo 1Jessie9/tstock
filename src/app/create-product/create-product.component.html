@@ -1,0 +1,112 @@
+<div class="create-product">
+    <h3 class="title-name">Crear producto</h3>
+
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+        <input class="input-style" [class.invalid]="productForm.get('title')?.invalid" type="text"
+            placeholder="Título del producto" formControlName="title">
+        <input class="input-style" [class.invalid]="productForm.get('description')?.invalid" type="text"
+            placeholder="Descripción del producto" formControlName="description">
+        <input class="input-style" [class.invalid]="productForm.get('price')?.invalid" type="number"
+            placeholder="Precio del producto" formControlName="price">
+
+        <div class="row-selects">
+            <select name="brand_id" id="brand_id" formControlName="brand_id" class="select-style">
+                <option value="">Marca</option>
+                @for (item of brandList; track $index) {
+                <option [value]="item.id">{{item.name}}</option>
+                }
+            </select>
+            <select name="ram_id" id="ram_id" formControlName="ram_id" class="select-style">
+                <option value="">Memoria RAM</option>
+                @for (item of ramList; track $index) {
+                <option [value]="item.id">{{item.name}}</option>
+                }
+            </select>
+            <select name="hard_drive_type_id" id="hard_drive_type_id" formControlName="hard_drive_type_id"
+                class="select-style">
+                <option value="">Tipo de disco duro</option>
+                @for (item of diskTypeList; track $index) {
+                <option [value]="item.id">{{item.name}}</option>
+                }
+            </select>
+            <select name="hard_drive_size_id" id="hard_drive_size_id" formControlName="hard_drive_size_id"
+                class="select-style">
+                <option value="">Tamaño de disco duro</option>
+                @for (item of diskSizeList; track $index) {
+                <option [value]="item.id">{{item.name}}</option>
+                }
+            </select>
+        </div>
+
+        <div class="list-specifications">
+            <h4 class="subtitle-name">Galería</h4>
+
+            <button class="btn btn-primary" type="button" (click)="addImage()">Agregar link de imagen</button>
+
+            <div class="list" formArrayName="images">
+                @for (image of groupImages.controls; track $index) {
+                <div class="specification" [formGroupName]="$index">
+                    <input [class.invalid]="productForm.get(['images', $index, 'image_path'])?.invalid" type="text"
+                        class="input-style" placeholder="Link imagen" formControlName="image_path">
+
+                    <button class="btn btn-secondary" type="button" (click)="removeImage($index)"
+                        [class.disabled]="groupImages.controls.length === 1"
+                        [disabled]="groupImages.controls.length === 1">Borrar</button>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="list-specifications" formGroupName="additional_info">
+            <h4 class="subtitle-name">Características</h4>
+
+            <input [class.invalid]="productForm.get('title')?.invalid" type="text" class="input-style"
+                placeholder="Título" formControlName="title">
+            <input [class.invalid]="productForm.get('description')?.invalid" type="text" class="input-style"
+                placeholder="Descripción" formControlName="description">
+            <input [class.invalid]="productForm.get('additional_info.image_path')?.invalid" type="text"
+                class="input-style" placeholder="Imagen link" formControlName="image_path">
+
+            <br>
+
+            <button class="btn btn-primary" type="button" (click)="addFeatures()">Agregar característica</button>
+
+            <div class="list" formArrayName="features">
+                @for (specification of groupFeatures.controls; track $index) {
+                <div class="specification" [formGroupName]="$index">
+                    <input type="text"
+                        [class.invalid]="productForm.get(['additional_info', 'features', $index, 'name'])?.invalid"
+                        class="input-style" placeholder="Característica" formControlName="name">
+
+                    <button class="btn btn-secondary" type="button" (click)="removeFeatures($index)"
+                        [class.disabled]="groupFeatures.controls.length === 1"
+                        [disabled]="groupFeatures.controls.length === 1">Borrar</button>
+                </div>
+                }
+            </div>
+        </div>
+
+        <div class="list-specifications">
+            <h4 class="subtitle-name">Especificaciones</h4>
+            <button class="btn btn-primary" type="button" (click)="addSpecification()">Agregar especificación</button>
+
+            <div class="list" formArrayName="specifications">
+                @for (specification of groupDescriptions.controls; track $index) {
+                <div class="specification" [formGroupName]="$index">
+                    <input type="text" [class.invalid]="productForm.get(['specifications', $index, 'name'])?.invalid"
+                        class="input-style" placeholder="Título" formControlName="name">
+                    <input type="text" [class.invalid]="productForm.get(['specifications', $index, 'value'])?.invalid"
+                        class="input-style" placeholder="Descripción" formControlName="value">
+
+                    <button class="btn btn-secondary" type="button" (click)="removeSpecification($index)"
+                        [class.disabled]="groupDescriptions.controls.length === 1"
+                        [disabled]="groupDescriptions.controls.length === 1">Borrar</button>
+                </div>
+                }
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid"
+            [class.disabled]="!productForm.valid">Enviar</button>
+    </form>
+</div>

@@ -63,4 +63,48 @@
             right: 8px;
         }
     }
+
+    .badge {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-radius: 25px;
+        border: solid 1px var(--color-medium2-text);
+        padding: 5px;
+        cursor: pointer;
+        position: relative;
+
+        .icon {
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-primary);
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--color-white-pure);
+            cursor: pointer;
+        }
+
+        .icon-down {
+            color: var(--color-medium1-text);
+        }
+    }
+
+    .menu {
+        position: absolute;
+        bottom: -50px;
+        box-shadow: var(--shadow-card);
+        padding: 8px;
+        background-color: var(--color-white);
+        border-radius: 10px;
+
+        .item {
+            color: var(--color-medium1-text);
+            display: flex;
+            gap: 10px;
+        }
+    }
 }
