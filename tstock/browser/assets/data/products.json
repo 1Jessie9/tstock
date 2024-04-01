@@ -3,7 +3,7 @@
         {
             "id": 1,
             "name": "Portátil LENOVO4",
-            "gallerySrc": [
+            "gallery": [
                 "https://exitocol.vtexassets.com/arquivos/ids/21481865/Computador-Portatil-HP-Pavilion-Intel-Core-i5-1235U-RAM-8-GB-512-GB-SSD-15-eg2519la-3488673_d.jpg?v=638430217291770000"
             ],
             "price": 2100000,
@@ -32,7 +32,7 @@
         {
             "id": 2,
             "name": "Portátil LENOVO 1",
-            "gallerySrc": [
+            "gallery": [
                 "https://exitocol.vtexassets.com/arquivos/ids/21481865/Computador-Portatil-HP-Pavilion-Intel-Core-i5-1235U-RAM-8-GB-512-GB-SSD-15-eg2519la-3488673_d.jpg?v=638430217291770000"
             ],
             "price": 2500000,
@@ -61,7 +61,7 @@
         {
             "id": 3,
             "name": "Portátil LENOVO 2",
-            "gallerySrc": [
+            "gallery": [
                 "https://exitocol.vtexassets.com/arquivos/ids/21481865/Computador-Portatil-HP-Pavilion-Intel-Core-i5-1235U-RAM-8-GB-512-GB-SSD-15-eg2519la-3488673_d.jpg?v=638430217291770000"
             ],
             "price": 2500000,
