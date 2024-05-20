@@ -9,7 +9,7 @@
     "test": "ng test",
     "ionic:build": "npm run build",
     "ionic:serve": "npm run start",
-    "gh-pages": "gh-pages -d dist"
+    "gh-pages": "ng deploy --base-href=/tstock/"
   },
   "private": true,
   "dependencies": {

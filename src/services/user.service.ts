@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthResponse, IParamsRegisterUser, IParamsUser } from '../interfaces/params-login.interface';
 import { environment } from '../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, firstValueFrom } from 'rxjs';
+import { Observable, firstValueFrom, of } from 'rxjs';
 import { IUser } from '../interfaces/user.interface';
 
 @Injectable({
@@ -100,6 +100,7 @@ export class UserService {
 
     checkSuperAdminPermission(): Observable<any> {
         const token = localStorage.getItem('access_token');
+        if (token && token.length < 1) return of(null);
         const httpOptions = {
             headers: new HttpHeaders({
                 'Authorization': `Bearer ${token}`
